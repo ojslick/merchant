@@ -17,7 +17,7 @@
   font-size: 12px;
   line-height: 14px;
   letter-spacing: 0.2px;
-  margin-left: 31px;
+  margin-left: 10%;
   color: #ffffff;
   cursor: pointer;
 }
@@ -25,7 +25,7 @@
 .side-bar-navigation-link {
   margin-top: 32px;
   width: 100%;
-  margin-left: 33px;
+  margin-left: 10%;
 }
 
 .side-bar-navigation-header {
