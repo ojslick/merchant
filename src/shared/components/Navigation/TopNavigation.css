@@ -1,0 +1,95 @@
+.top-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  box-shadow: 0px 4px 10px rgba(79, 79, 79, 0.07);
+  padding: 0 5%;
+}
+
+.top-navigation-left {
+  width: 40%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-navigation-left-logo {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 28px;
+  cursor: pointer;
+  color: #1875f0;
+}
+
+.top-navigation-left-search {
+  width: 40%;
+  position: relative;
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.top-navigation-left-search-input {
+  font-size: 12px;
+  line-height: 16px;
+  border: none;
+  outline: none;
+  color: #979797;
+}
+
+.top-navigation-left-search-icon {
+  margin-right: 15px;
+}
+
+.top-navigation-right {
+  width: 40%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-navigation-right-support {
+  font-size: 14px;
+  line-height: 19px;
+  color: #647787;
+}
+
+.top-navigation-right-support {
+  font-size: 14px;
+  line-height: 19px;
+  cursor: pointer;
+  /* Text */
+
+  color: #647787;
+}
+
+.top-navigation-right-user {
+  display: flex;
+  align-items: center;
+}
+
+.top-navigation-right-user-hello {
+  font-size: 10px;
+  line-height: 13px;
+  color: #647787;
+  display: inline;
+  margin: 0;
+}
+
+.top-navigation-right-user-name {
+  font-size: 14px;
+  line-height: 19px;
+  margin: 0;
+  color: #647787;
+}
+
+.top-navigation-right-user-pic {
+  border-radius: 100px;
+  height: 50px;
+  height: 50px;
+}
