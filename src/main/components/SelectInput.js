@@ -27,12 +27,12 @@ const customStyles = {
     borderRadius: 0,
     // kill the gap
     marginTop: 0,
-    background: 'black',
-    color: 'white',
+    background: '#FFFFFF',
+    color: '#414042',
   }),
   input: (base) => ({
     ...base,
-    color: 'white',
+    color: '#414042',
   }),
 };
 
@@ -40,7 +40,7 @@ class SelectInput extends React.Component {
   render() {
     return (
       <Select
-        placeholder="1 Jan - 1 Jun"
+        placeholder={this.props.placeholder}
         className="select-styles"
         styles={customStyles}
         theme={(theme) => ({
@@ -48,8 +48,8 @@ class SelectInput extends React.Component {
           borderRadius: 0,
           colors: {
             ...theme.colors,
-            primary25: 'grey',
-            primary: 'black',
+            primary25: '#F4F4F4',
+            primary: '#F4F4F4',
           },
         })}
         options={this.props.options}

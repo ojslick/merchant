@@ -7,17 +7,32 @@ import './Overview.css';
 import Graph from './components/Graph';
 import Orders from './components/Orders';
 import Payments from './components/Payments';
+import SelectInput from './components/SelectInput';
+
+import DownArrow from './Images/DownArrow.svg';
+import Search from './Images/Search.svg';
 
 import PAYMENTS from '../data/dummy-data-payments';
 import ORDERS from '../data/dummy-data-payments';
 
 class Overview extends React.Component {
   state = {
-    pendingOrders: 0,
-    reconciledOrders: 0,
-    reconciledPayments: 0,
-    unreconciledPayments: 0,
+    filteredPayment: [],
+    options: [
+      { value: 'all', label: 'All' },
+      {
+        value: 'reconciled',
+        label: 'Reconciled',
+      },
+      { value: 'unReconciled', label: 'Un-Reconciled' },
+      { value: 'settle', label: 'Settled' },
+      { value: 'unsettled', label: 'Unsettled' },
+    ],
   };
+
+  componentDidMount() {
+    this.setState({ filteredPayment: PAYMENTS });
+  }
 
   handleOrders(key) {
     const grouped = _.mapValues(_.groupBy(ORDERS, 'status'));
@@ -68,6 +83,22 @@ class Overview extends React.Component {
 
   handleTotalTransactionValue(transactions) {
     return _.sumBy(transactions, 'price');
+  }
+
+  handleFilter(value) {
+    const searchResult = this.state.filteredPayment[0]
+      ? this.state.filteredPayment.filter((payment) => {
+          return payment.productName
+            .toLowerCase()
+            .includes(value.toLowerCase());
+        })
+      : PAYMENTS.filter((payment) => {
+          return payment.productName
+            .toLowerCase()
+            .includes(value.toLowerCase());
+        });
+
+    this.setState({ filteredPayment: searchResult });
   }
 
   render() {
@@ -128,6 +159,136 @@ class Overview extends React.Component {
               reconciledPayments={this.handlePayments('Reconciled')}
             />
           </div>
+        </div>
+        <div className="overview-payment-list">
+          <h1 className="overview-payment-list-header">Payments</h1>
+          <div className="overview-payment-list-actions">
+            <div className="overview-payment-list-actions-showing">
+              Showing
+              <span
+                style={{
+                  color: '#1875F0',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  marginRight: '5px',
+                  marginLeft: '10px',
+                }}
+              >
+                9
+              </span>
+              <img
+                src={DownArrow}
+                alt="Down-Arrow"
+                style={{ marginRight: '5px', cursor: 'pointer' }}
+              />
+              of 9 payments
+            </div>
+            <div
+              className="top-navigation-left-search"
+              style={{
+                borderBottom: '1px solid #787878',
+                paddingBottom: '4px',
+              }}
+            >
+              <img
+                src={Search}
+                alt="Search"
+                className="top-navigation-left-search-icon"
+              />
+              <input
+                placeholder="Search"
+                className="top-navigation-left-search-input"
+                style={{ background: 'none' }}
+                onChange={(e) => this.handleFilter(e.target.value)}
+              />
+            </div>
+            <div style={{ display: 'flex' }}>
+              <p className="overview-payment-list-show">Show</p>
+              <SelectInput
+                options={this.state.options}
+                // onChange={() => this.handleFilter('reconciled', 'reconciled')}
+              />
+            </div>
+          </div>
+          <div className="overview-payment-list-container">
+            <div
+              style={{ width: '7%' }}
+              className="overview-payment-list-title"
+            >
+              Item Type
+            </div>
+            <div
+              style={{ width: '30%' }}
+              className="overview-payment-list-title"
+            ></div>
+            <div
+              style={{ width: '15%' }}
+              className="overview-payment-list-title"
+            >
+              Price
+            </div>
+            <div
+              style={{ width: '15%' }}
+              className="overview-payment-list-title"
+            >
+              Transaction No
+            </div>
+            <div
+              style={{ width: '13%' }}
+              className="overview-payment-list-title"
+            >
+              Time
+            </div>
+            <div
+              style={{ width: '20%' }}
+              className="overview-payment-list-title"
+            ></div>
+          </div>
+          {this.state.filteredPayment[0]
+            ? this.state.filteredPayment.map((payment) => (
+                <div
+                  className="overview-payment-list-container-payment"
+                  key={payment.id}
+                >
+                  <div
+                    style={{ width: '7%' }}
+                    className="overview-payment-list-title"
+                  >
+                    {payment.itemType}
+                  </div>
+                  <div
+                    style={{ width: '30%' }}
+                    className="overview-payment-list-title"
+                  >
+                    {payment.productName}
+                  </div>
+                  <div
+                    style={{ width: '15%' }}
+                    className="overview-payment-list-title"
+                  >
+                    {payment.price}
+                  </div>
+                  <div
+                    style={{ width: '15%' }}
+                    className="overview-payment-list-title"
+                  >
+                    {payment.transactionNo}
+                  </div>
+                  <div
+                    style={{ width: '13%' }}
+                    className="overview-payment-list-title"
+                  >
+                    {payment.time}
+                  </div>
+                  <div
+                    style={{ width: '20%' }}
+                    className="overview-payment-list-title"
+                  >
+                    {payment.status}
+                  </div>
+                </div>
+              ))
+            : ''}
         </div>
       </div>
     );
